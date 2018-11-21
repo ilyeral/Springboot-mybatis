@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.FileInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.FileInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="parentId" property="parentid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="MD5" property="md5" jdbcType="VARCHAR" />
+    <result column="isLock" property="islock" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="isShare" property="isshare" jdbcType="INTEGER" />
+    <result column="shareUrl" property="shareurl" jdbcType="VARCHAR" />
+    <result column="shareDownloadNum" property="sharedownloadnum" jdbcType="INTEGER" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.demo.model.FileInfo" extends="BaseResultMap" >
+    <result column="size" property="size" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userId, parentId, name, type, path, description, MD5, isLock, password, isShare, 
+    shareUrl, shareDownloadNum, createDate
+  </sql>
+  <sql id="Blob_Column_List" >
+    size
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from file
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from file
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.FileInfo" >
+    insert into file (id, userId, parentId, 
+      name, type, path, description, 
+      MD5, isLock, password, 
+      isShare, shareUrl, shareDownloadNum, 
+      createDate, size)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{parentid,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{md5,jdbcType=VARCHAR}, #{islock,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
+      #{isshare,jdbcType=INTEGER}, #{shareurl,jdbcType=VARCHAR}, #{sharedownloadnum,jdbcType=INTEGER}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{size,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.FileInfo" >
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="md5 != null" >
+        MD5,
+      </if>
+      <if test="islock != null" >
+        isLock,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="isshare != null" >
+        isShare,
+      </if>
+      <if test="shareurl != null" >
+        shareUrl,
+      </if>
+      <if test="sharedownloadnum != null" >
+        shareDownloadNum,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="islock != null" >
+        #{islock,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isshare != null" >
+        #{isshare,jdbcType=INTEGER},
+      </if>
+      <if test="shareurl != null" >
+        #{shareurl,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedownloadnum != null" >
+        #{sharedownloadnum,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.FileInfo" >
+    update file
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        MD5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="islock != null" >
+        isLock = #{islock,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isshare != null" >
+        isShare = #{isshare,jdbcType=INTEGER},
+      </if>
+      <if test="shareurl != null" >
+        shareUrl = #{shareurl,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedownloadnum != null" >
+        shareDownloadNum = #{sharedownloadnum,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.FileInfo" >
+    update file
+    set userId = #{userid,jdbcType=BIGINT},
+      parentId = #{parentid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      MD5 = #{md5,jdbcType=VARCHAR},
+      isLock = #{islock,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      isShare = #{isshare,jdbcType=INTEGER},
+      shareUrl = #{shareurl,jdbcType=VARCHAR},
+      shareDownloadNum = #{sharedownloadnum,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      size = #{size,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.FileInfo" >
+    update file
+    set userId = #{userid,jdbcType=BIGINT},
+      parentId = #{parentid,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      MD5 = #{md5,jdbcType=VARCHAR},
+      isLock = #{islock,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      isShare = #{isshare,jdbcType=INTEGER},
+      shareUrl = #{shareurl,jdbcType=VARCHAR},
+      shareDownloadNum = #{sharedownloadnum,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
