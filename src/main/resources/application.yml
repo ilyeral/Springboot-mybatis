@@ -1,2 +1,35 @@
 server:
   port: 8080
+  tomcat:
+      #springboot启动c3p0找包异常
+      additional-tld-skip-patterns: mysql-connector-java-*.jar
+spring:
+    datasource:
+      driverClass: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://localhost:3306/mycloud?serverTimezone=GMT%2B8&useSSL=false
+      user: root
+      password:
+      maxIdleTime: 1800000
+      initialPoolSize: 3
+      acquireIncrement: 3
+      maxStatements: 1000
+      idleConnectionTestPeriod: 60
+      minPoolSize: 3
+      maxPoolSize: 10
+       # 使用c3p0数据源
+      type: com.mchange.v2.c3p0.ComboPooledDataSource
+
+##
+mybatis:
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapper-locations: classpath:mapping/*.xml
+  # 配置类型别名
+  typeAliasesPackage: com.hzh.demo.model
+  # 加载全局的配置文件
+#  configLocation: classpath:mybatis/mybatis-config.xml
+#分页工具
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
