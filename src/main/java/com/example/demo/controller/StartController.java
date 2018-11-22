@@ -24,7 +24,7 @@ public class StartController {
     @GetMapping()//任何不存在的路径重定向到indexApp函数
     public String startApp(Model model) {
         logger.info("get  startApp");
-        return "redirect:indexApp";
+        return "redirect:http://127.0.0.1:8080/start";
     }
 
 
@@ -34,13 +34,7 @@ public class StartController {
         return "start";
     }
 
-    @GetMapping("index")//暂无用处
-    public String index(Model model) {
-        logger.info("get  index");
-        return "indexApp";
-    }
-
-    @PostMapping("start/login")//登录验证，请求在start,html
+    @PostMapping("login")//登录验证，请求在start,html
     public String login(@ModelAttribute User user, HttpSession session) {
         logger.info("post  login");
 
@@ -54,7 +48,7 @@ public class StartController {
     }
 
 
-    @PostMapping("start/register")//注册验证，请求在start,html
+    @PostMapping("register")//注册验证，请求在start,html
     public String register(@ModelAttribute User user, HttpSession session) {
         logger.info("post  register");
 
@@ -73,34 +67,17 @@ public class StartController {
         }
     }
 
-    @GetMapping("start/index")//验证后的重定向，因为验证url有start前缀，所以此处也应带
-    public String index_one(Model model) {
+    @GetMapping("index")//验证后的重定向，因为验证url有start前缀，所以此处也应带
+    public String index_one(Model model,HttpSession session) {
         logger.info("get  index_one");
+        model.addAttribute("user",session.getAttribute(WebSecurityConfig.SESSION_KEY));
         return "indexApp";
     }
 
-    @GetMapping("start/err")//验证后的重定向，因为验证url有start前缀，所以此处也应带
+    @GetMapping("err")//验证后的重定向，因为验证url有start前缀，所以此处也应带
     public String err(Model model) {
         logger.info("get  err");
         return "err";
     }
 
-    @GetMapping("indexApp")//返回主界面
-    public String indexApp(Model model) {
-        logger.info("get  indexApp");
-        return "indexApp";
-    }
-
-
-    /////////////////////////////////////////////////////测试重定向
-    @GetMapping("index2")//重定向到index3
-    public String index1(
-            Model model) {
-        return "redirect:index3";
-    }
-    @GetMapping("index3")//不显示实际路径，只显示请求路径
-    public String index2(
-            Model model) {
-        return "err";
-    }
 }
