@@ -67,14 +67,14 @@ public class StartController {
         }
     }
 
-    @GetMapping("index")//验证后的重定向，因为验证url有start前缀，所以此处也应带
+    @GetMapping("index")//验证后的重定向，所以此处也应带
     public String index_one(Model model,HttpSession session) {
         logger.info("get  index_one");
         model.addAttribute("user",session.getAttribute(WebSecurityConfig.SESSION_KEY));
         return "indexApp";
     }
 
-    @GetMapping("err")//验证后的重定向，因为验证url有start前缀，所以此处也应带
+    @GetMapping("err")//验证后的重定向，所以此处也应带
     public String err(Model model) {
         logger.info("get  err");
         return "err";
